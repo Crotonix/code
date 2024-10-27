@@ -3,13 +3,14 @@ from sklearn import datasets, model_selection
 
 from decisionTree import DecisionTree
 
-iris = datasets.load_iris()
+# iris = datasets.load_iris()
+data = datasets.load_breast_cancer()
 
-x = np.array(iris.data)
-y = np.array(iris.target)
+x = np.array(data.data)
+y = np.array(data.target)
 
 x_train, x_test, y_train, y_test = model_selection.train_test_split(
-    x, y, test_size=0.25, random_state=0
+    x, y, test_size=0.2, random_state=0
 )
 print("Train shape:", x_train.shape)
 print("Test Shape:", x_test.shape)
