@@ -11,11 +11,16 @@ class DecisionTree:
     """
 
     def __init__(
-        self, max_depth=4, min_samples_leaf=1, min_infromation_gain=0.0
+        self,
+        max_depth=4,
+        min_samples_leaf=1,
+        min_infromation_gain=0.0,
+        numb_of_features_splitting=None,
     ) -> None:
         self.max_depth = max_depth
         self.min_samples_leaf = min_samples_leaf
         self.min_information_gain = min_infromation_gain
+        self.number_of_features_splitting = numb_of_features_splitting
 
     def _entropy(self, class_probabilities: list) -> float:
         # first get correct domain for log function as p can be 0
@@ -168,6 +173,16 @@ class DecisionTree:
         # start creating the trees
         self.tree = self._create_tree(data=train_data, current_depth=0)
 
+        # Calculate feature importance
+        # self.feature_importances = dict.fromkeys(range(x_train.shape[1]), 0)
+        # self._calculate_feature_importance(self.tree)
+        # # Noramalize the feature importance values
+        # self.feature_importances = {
+        #     k: v / total
+        #     for total in (sum(self.feature_importances.values()),)
+        #     for k, v in self.feature_importances.items()
+        # }
+
     def predict_one_sample(self, x: np.array) -> np.array:
         """Returns prediction for 1 dim array"""
         node = self.tree
@@ -202,3 +217,10 @@ class DecisionTree:
 
     def print_tree(self) -> None:
         self._print_recursive(node=self.tree)
+
+    # def _calculate_feature_importance(self, node):
+    #     """Calculates the feature importance by visiting each node in the tree recursively"""
+    #     if node != None:
+    #         self.feature_importances[node.feature_idx] += node.feature_importance
+    #         self._calculate_feature_importance(node.left)
+    #         self._calculate_feature_importance(node.right)
