@@ -11,7 +11,7 @@ class RandomForestClassfier:
     def __init__(
         self,
         n_base_learner=10,
-        max_depth=4,
+        max_depth=5,
         min_samples_leaf=1,
         min_information_gain=0.0,
         numb_of_features_splitting=None,
@@ -85,7 +85,7 @@ class RandomForestClassfier:
         for obs in range(x_set.shape[0]):
             base_learner_probs_for_obs = [a[obs] for a in base_learner_pred_probs]
             # Calculate the average for each index
-            obs_average_pred_probs = np.mean(base_learner_probs_for_obs, axis=1)
+            obs_average_pred_probs = np.mean(base_learner_probs_for_obs, axis=0)
             pred_probs.append(obs_average_pred_probs)
 
         return pred_probs
